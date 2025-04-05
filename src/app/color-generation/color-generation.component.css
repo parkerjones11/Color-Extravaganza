@@ -1,0 +1,40 @@
+small{
+    color: red;
+    font-weight: bold;
+}
+
+button{
+    background-color: #3498db;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    
+}
+
+div.form{
+    background-color: lightgray;
+    padding: 16px 32px;
+    border: black;
+    border-style: solid;
+    overflow: hidden;
+    width: 700px;
+   
+}
+
+input{
+    width: 50%;
+    height: 25px;
+    border: none;
+    border-bottom: 2px solid #2c3e50;
+    background-color: lightgray;
+    padding: 0;
+    margin-top: 4px;
+}
+
+label{
+    font-weight: bold;
+}
