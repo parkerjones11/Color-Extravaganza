@@ -1,22 +1,41 @@
 .about-page {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
   
-  .header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  
-  .header h1 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-  
-  .subtitle {
-    color: #7f8c8d;
-    font-size: 1.2rem;
-  }
-  
+.column{
+  float: left;
+  padding: 10px;
+}
+
+.bio{
+  width: 500px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+img{
+  width: 250px;
+  height: 250px;
+}
