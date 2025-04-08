@@ -45,3 +45,43 @@
     </form>
 </div>
 
+<br>
+<div *ngIf="submitted">
+  <table class="color-table">
+      <tr *ngFor="let row of colorRows; let i = index">
+          <td class="left-column">
+              <div class="input-container">
+                  <label>
+                      <input type="radio" name="selectedRow" [checked]="selectedRowIndex === i" (change)="selectRow(i)">
+                  </label>
+                  <select [value]="row.color" (change)="onColorChange(i, $event)">
+                      <option *ngFor="let color of getAvailableColors(row.color)" [value]="color">
+                          {{ color.charAt(0).toUpperCase() + color.slice(1) }}
+                      </option>
+                  </select>
+              </div>
+          </td>
+          <td class="right-column"></td>
+      </tr>
+  </table>
+
+  <table class="color-painting-table">
+    <tr>
+      <td></td>
+      <td *ngFor="let col of getColumnLabels(cols)">
+        {{ col }}
+      </td>
+    </tr>
+    <tr *ngFor="let row of getRowRange(rows); let r = index">
+      <td>{{ r + 1 }}</td>
+      <td *ngFor="let col of getColumnLabels(cols); let c = index" (click)="onCellClick(r + 1, col)">
+      </td>
+    </tr>
+  </table>
+  <br>
+  <button (click)="printPage()">Print Page</button>
+</div>
+  
+  
+  
+
