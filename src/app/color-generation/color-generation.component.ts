@@ -38,7 +38,7 @@ export class ColorGenerationComponent {
       this.submitted = true;
       const count = this.colorForm.value.color!;
       this.colorRows = Array.from({ length: count }, (_, i) => ({
-        color: this.colorOptions[i]  // assign unique colors by default
+        color: this.colorOptions[i]
       }));
       this.selectedRowIndex = 0;
   }
@@ -61,7 +61,7 @@ selectRow(index: number) {
 
 getColumnLabels(cols: number): string[] {
   const labels: string[] = [];
-  let letter1 = 'A'.charCodeAt(0); // 'A' = 65
+  let letter1 = 'A'.charCodeAt(0);
   let letter2 = 'A'.charCodeAt(0);
 
   for (let i = 0; i < cols; i++) {
