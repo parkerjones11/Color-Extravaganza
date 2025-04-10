@@ -21,6 +21,8 @@ export class ColorGenerationComponent {
   });
 
   submitted = false;
+  submittedRows = 1;
+  submittedCols = 1;
   selectedRowIndex: number | null = null;
   colorRows: { color: string }[] = [];
   readonly colorOptions: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
@@ -36,6 +38,8 @@ export class ColorGenerationComponent {
   submitForm(event: Event): void {
     if (this.colorForm.valid) {
       this.submitted = true;
+      this.submittedRows = this.rows;
+      this.submittedCols = this.cols;
       const count = this.colorForm.value.color!;
       this.colorRows = Array.from({ length: count }, (_, i) => ({
         color: this.colorOptions[i]
