@@ -182,5 +182,48 @@ input {
 
 label {
     font-weight: bold;
+}
+
+.color-table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.left-column {
+    width: 20%;
+}
+
+.right-column {
+    width: 80%;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 8px;
+}
+
+select {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fafafa;
+    cursor: pointer;
     color: #184067;
 }
