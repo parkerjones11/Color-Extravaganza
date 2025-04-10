@@ -188,7 +188,6 @@ label {
     width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: white;
 }
 
 td {
@@ -213,6 +212,7 @@ td {
 }
 
 input[type="radio"] {
+    accent-color: #EE3377;
     transform: scale(1.2);
     margin-right: 8px;
 }
@@ -221,9 +221,10 @@ select {
     flex-grow: 1;
     padding: 8px;
     font-size: 14px;
+    font-weight: bold;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fafafa;
+    background-color: #F1DCA7; 
     cursor: pointer;
     color: #184067;
 }
