@@ -228,3 +228,38 @@ select {
     cursor: pointer;
     color: #184067;
 }
+
+@media print {
+    table,
+    th,
+    td {
+        border: 1px solid black !important;
+        background: white !important;
+        }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12pt;
+  }
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: none !important;
+      border: none !important;
+      padding-right: 0 !important;
+    }
+
+    .scrollable-table {
+        overflow: hidden !important;
+      }
+  }
+
+  .scrollable-table {
+    max-height: 500px;
+    overflow: auto;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
