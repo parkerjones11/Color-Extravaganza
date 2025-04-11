@@ -1,6 +1,6 @@
-<h1>Welcome to Color Generation!</h1>
+<h1 class="no-print">Welcome to Color Generation!</h1>
 
-<div class="form">
+<div class="form no-print">
     <form [formGroup]="colorForm" (ngSubmit)="submitForm($event)">
         <label for="rows">Enter number of rows: </label><br>
         <input type="number" id="rows" name="rows" formControlName="rows" [(ngModel)]="rows"><br>
@@ -45,14 +45,14 @@
     </form>
 </div>
 
-<br>
+<br class="no-print">
 <div *ngIf="submitted">
   <table class="color-table">
       <tr *ngFor="let row of colorRows; let i = index">
           <td class="left-column">
               <div class="input-container">
                   <label>
-                      <input type="radio" name="selectedRow" [checked]="selectedRowIndex === i" (change)="selectRow(i)">
+                      <input class="no-print" type="radio" name="selectedRow" [checked]="selectedRowIndex === i" (change)="selectRow(i)">
                   </label>
                   <select [value]="row.color" (change)="onColorChange(i, $event)">
                       <option *ngFor="let color of getAvailableColors(row.color)" [value]="color">
@@ -81,7 +81,7 @@
   </table>
 </div>
   <br>
-  <button (click)="printPage()">Print Page</button>
+  <button (click)="printPage()" class="no-print">Print Page</button>
 </div>
   
   

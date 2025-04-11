@@ -55,6 +55,14 @@ body {
     transform: rotate(10deg) scale(1.1);
 }
 
+@media print {
+    .logo-img {
+        width: 70px;
+        height: 70px;
+        filter: grayscale(100%);
+    }
+}
+
 .company-name {
     color: #184067;
     font-size: 1.5rem;
@@ -157,4 +165,12 @@ section.cta {
     background: white;
     color: #EE3377;
     box-shadow: 0 0 20px #EE3377;
+}
+
+@media print {
+    .navbar {
+        background-color: none;
+        box-shadow: none;
+        border: none;
+    }
 }
