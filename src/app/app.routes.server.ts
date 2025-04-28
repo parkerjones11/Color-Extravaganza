@@ -14,6 +14,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+    path: 'color-selection',
+    renderMode: RenderMode.Prerender
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }

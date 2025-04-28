@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ColorService } from '../services/color.service';
 
 @Component({
   selector: 'app-color-generation',
@@ -13,6 +14,16 @@ import { CommonModule } from '@angular/common';
 
 
 export class ColorGenerationComponent {
+
+  constructor(private colorService: ColorService) {}
+  colors: any[] = [];
+
+  ngOnInit() {
+    this.colorService.getColors().subscribe((data) => {
+      this.colors = data;
+      console.log('Colors:', data);
+    });
+  }
   
   colorForm: FormGroup = new FormGroup({
     rows: new FormControl(1, {validators: [Validators.required, Validators.min(1), Validators.max(1000)]}),
