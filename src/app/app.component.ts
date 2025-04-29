@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
-import { Router, Event, NavigationEnd,NavigationStart, RouterOutlet, RouterModule } from '@angular/router';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { Router, Event, NavigationEnd, NavigationStart, RouterOutlet, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule], // Add RouterOutlet here
+  imports: [CommonModule, RouterOutlet, RouterModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None // ✅ allows global styles to affect <html> and <body>
 })
-
 export class AppComponent {
-  // TESTS NAVIGATION VIA ROUTER LINKS!!
   // constructor(private router: Router) {
   //   this.router.events.subscribe((event: Event) => {
   //     if (event instanceof NavigationStart) {

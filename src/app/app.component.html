@@ -1,19 +1,25 @@
-<header>
-  <nav class="navbar">
-    <div class="logo-container">
-      <img src="/logo.png" alt="Color Extravaganza Logo" class="logo-img" />
-      <h1 class="company-name no-print">Color Extravaganza</h1>
-    </div>
+<div class="page">
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="/logo.png" alt="Color Extravaganza Logo" class="logo-img" />
+        <h1 class="company-name no-print">Color Extravaganza</h1>
+      </div>
 
-    <ul class="nav-links no-print">
-      <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/about" routerLinkActive="active">About</a></li>
-      <li><a routerLink="/color-generation" routerLinkActive="active">Color Generation</a></li>
-      <li><a routerLink="/color-selection" routerLinkActive="active">Color Selection</a></li>
-    </ul>
-  </nav>
-</header>
+      <ul class="nav-links no-print">
+        <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+        <li><a routerLink="/color-generation" routerLinkActive="active">Color Generation</a></li>
+        <li><a routerLink="/color-selection" routerLinkActive="active">Color Selection</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="no-print">
+    <p style="text-align: center; padding: 1rem; color: #184067;">© 2025 Color Extravaganza</p>
+  </footer>
+</div>
