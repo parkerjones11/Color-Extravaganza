@@ -1,31 +1,70 @@
-
 .card {
-    background-color: #FFCCCC; /*WebAIM score: 7.5*/
-    padding: 1.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px #EE3377;/*poor contrast git rid of?*/
-    color: #184067;
-    margin-bottom: 1.5rem;
+  background-color: #FFCCCC; /* WebAIM score: 7.5 */
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px #EE3377; /* poor contrast, optional to remove */
+  color: #184067;
+  margin-bottom: 1.5rem;
+}
+
+.button-primary,
+button {
+  background-color: #000000; /* WebAIM score: 14.75 */
+  color: #FFFFFF; /* WebAIM score: 21.1 */
+  font-weight: bold;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 4px 2px;
+  transition: all 0.3s ease;
+}
+
+.button-primary:hover,
+button:hover {
+  background: #0A3D8A; /* WebAIM score: 7.2 */
+  color: #FFFFFF;  /* WebAIM score: 9.96 */
+  box-shadow: 0 0 20px #EE3377; /* poor contrast, optional to remove */
+}
+
+.color-painting-table,
+.color-painting-table td,
+.color-painting-table th {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.color-painting-table td,
+.color-painting-table th {
+  background-color: white;
+  color: black;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+/* Always show print labels in print */
+.print-label {
+  display: none;
+}
+
+@media print {
+  input[type="radio"] {
+    display: none;
   }
-  
-  .button-primary,
-  button {
-    background-color: #000000; /*WebAIM score: 14.75*/
-    color: #FFFFFF; /*WebAIM score: 21.1*/
-    font-weight: bold;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 4px 2px;
-    transition: all 0.3s ease;
+
+  .print-label {
+    display: inline;
+    color: black;
+    font-size: 0.85rem;
   }
-  
-  .button-primary:hover,
-  button:hover {
-    background: #0A3D8A;/*WebAIM score: 7.2*/
-    color: #FFFFFF;  /*WebAIM score: 9.96*/
-    box-shadow: 0 0 20px #EE3377; /*poor contrast git rid of?*/
+
+  .color-painting-table td,
+  .color-painting-table th {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid black;
   }
-  
+}

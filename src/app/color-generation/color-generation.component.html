@@ -1,97 +1,104 @@
 <div class="card">
-    <h1 class="no-print">Welcome to Color Generation!</h1>
-  
-    <div class="form no-print">
-      <form [formGroup]="colorForm" (ngSubmit)="submitForm($event)">
-        <label for="rows">Enter number of rows: </label><br>
-        <input type="number" id="rows" name="rows" formControlName="rows" [(ngModel)]="rows"><br>
-  
-        @if (colorForm.controls['rows'].invalid && (colorForm.controls['rows'].touched || colorForm.controls['rows'].dirty)) {
-          @if (colorForm.controls['rows'].errors?.['required']) {
-            <small>*Rows is a required field</small><br>
-          }
-          @if (colorForm.controls['rows'].errors?.['min']) {
-            <small>*Rows value must be greater than or equal to 1</small><br>
-          }
-          @if (colorForm.controls['rows'].errors?.['max']) {
-            <small>*Rows value must be less or equal to 1000</small><br>
-          }
+  <h1 class="no-print">Welcome to Color Generation!</h1>
+
+  <div class="form no-print">
+    <form [formGroup]="colorForm" (ngSubmit)="submitForm($event)">
+      <label for="rows">Enter number of rows:</label><br>
+      <input type="number" id="rows" formControlName="rows">
+
+      @if (colorForm.controls['rows'].invalid && (colorForm.controls['rows'].touched || colorForm.controls['rows'].dirty)) {
+        @if (colorForm.controls['rows'].errors?.['required']) {
+          <small>*Rows is a required field</small><br>
         }
-  
-        <br><label for="cols">Enter number of columns: </label><br>
-        <input type="number" id="cols" name="cols" formControlName="cols" [(ngModel)]="cols"><br>
-  
-        @if (colorForm.controls['cols'].invalid && (colorForm.controls['cols'].touched || colorForm.controls['cols'].dirty)) {
-          @if (colorForm.controls['cols'].errors?.['required']) {
-            <small>*Columns is a required field</small><br>
-          }
-          @if (colorForm.controls['cols'].errors?.['min']) {
-            <small>*Columns value must be greater than or equal to 1</small><br>
-          }
-          @if (colorForm.controls['cols'].errors?.['max']) {
-            <small>*Columns value must be less than or equal to 702</small><br>
-          }
+        @if (colorForm.controls['rows'].errors?.['min']) {
+          <small>*Rows must be at least 1</small><br>
         }
-  
-        <br><label for="color">Enter color value: </label><br>
-        <input type="number" id="color" name="color" formControlName="color"><br>
-  
-        @if (colorForm.controls['color'].invalid && (colorForm.controls['color'].touched || colorForm.controls['color'].dirty)) {
-          @if (colorForm.controls['color'].errors?.['required']) {
-            <small>*Color value is a required field</small><br>
-          }
-          @if (colorForm.controls['color'].errors?.['min']) {
-            <small>*Color value must be greater than or equal to 1</small><br>
-          }
-          @if (colorForm.controls['color'].errors?.['max']) {
-            <small>*Color value must be less than or equal to 10</small><br>
-          }
+        @if (colorForm.controls['rows'].errors?.['max']) {
+          <small>*Rows must be at most 1000</small><br>
         }
-  
-        <br>
-        <button type="submit" [disabled]="colorForm.invalid">Submit!</button>
-      </form>
-    </div>
-  
-    <br class="no-print">
-  
-    <div *ngIf="submitted">
-      <table class="color-table">
-        <tr *ngFor="let row of colorRows; let i = index">
-          <td class="left-column">
-            <div class="input-container">
-              <label>
-                <input class="no-print" type="radio" name="selectedRow" [checked]="selectedRowIndex === i" (change)="selectRow(i)">
-              </label>
-              <select [value]="row.color" (change)="onColorChange(i, $event)">
-                <option *ngFor="let color of getAvailableColors(row.color)" [value]="color">
-                  {{ color.charAt(0).toUpperCase() + color.slice(1) }}
-                </option>
-              </select>
-            </div>
+      }
+
+      <br><label for="cols">Enter number of columns:</label><br>
+      <input type="number" id="cols" formControlName="cols">
+
+      @if (colorForm.controls['cols'].invalid && (colorForm.controls['cols'].touched || colorForm.controls['cols'].dirty)) {
+        @if (colorForm.controls['cols'].errors?.['required']) {
+          <small>*Columns is a required field</small><br>
+        }
+        @if (colorForm.controls['cols'].errors?.['min']) {
+          <small>*Columns must be at least 1</small><br>
+        }
+        @if (colorForm.controls['cols'].errors?.['max']) {
+          <small>*Columns must be at most 702</small><br>
+        }
+      }
+
+      <br><label for="color">Enter color value:</label><br>
+      <input type="number" id="color" formControlName="color"><br>
+
+      @if (colorForm.controls['color'].invalid && (colorForm.controls['color'].touched || colorForm.controls['color'].dirty)) {
+        @if (colorForm.controls['color'].errors?.['required']) {
+          <small>*Color value is required</small><br>
+        }
+        @if (colorForm.controls['color'].errors?.['min']) {
+          <small>*Color value must be at least 1</small><br>
+        }
+        @if (colorForm.controls['color'].errors?.['max']) {
+          <small>*Color value must be at most 10</small><br>
+        }
+      }
+
+      <br>
+      <button type="submit" [disabled]="colorForm.invalid">Submit!</button>
+    </form>
+  </div>
+
+  <br class="no-print">
+
+  <div *ngIf="submitted">
+    <table class="color-table">
+      <tr *ngFor="let row of colorRows; let i = index">
+        <td class="left-column">
+          <div class="input-container">
+            <label>
+              <input class="no-print" type="radio" name="selectedRow" [checked]="selectedRowIndex === i" (change)="selectRow(i)">
+            </label>
+
+            <select [value]="row.color.name" (change)="onColorChange(i, $event)">
+              <option *ngFor="let color of getAvailableColors(row.color.name)" [value]="color.name">
+                {{ formatColorName(color.name) }} ({{ color.hex }})
+              </option>
+            </select>
+          </div>
+        </td>
+        <td class="right-column"></td>
+      </tr>
+    </table>
+
+    <div class="scrollable-table">
+      <table class="color-painting-table">
+        <tr>
+          <td></td>
+          <td *ngFor="let col of getColumnLabels(submittedCols)">
+            {{ col }}
           </td>
-          <td class="right-column"></td>
+        </tr>
+        <tr *ngFor="let row of getRowRange(submittedRows); let r = index">
+          <td>{{ r + 1 }}</td>
+          <td
+            *ngFor="let col of getColumnLabels(submittedCols); let c = index"
+            (click)="onCellClick(r + 1, col)"
+            [ngStyle]="{ 'background-color': getCellColor(r + 1, col), 'color': 'transparent' }"
+          >
+            <span class="print-label">
+              {{ getCellLabel(r + 1, col) }}
+            </span>
+          </td>
         </tr>
       </table>
-  
-      <div class="scrollable-table">
-        <table class="color-painting-table">
-          <tr>
-            <td></td>
-            <td *ngFor="let col of getColumnLabels(submittedCols)">
-              {{ col }}
-            </td>
-          </tr>
-          <tr *ngFor="let row of getRowRange(submittedRows); let r = index">
-            <td>{{ r + 1 }}</td>
-            <td *ngFor="let col of getColumnLabels(submittedCols); let c = index" (click)="onCellClick(r + 1, col)">
-            </td>
-          </tr>
-        </table>
-      </div>
-  
-      <br>
-      <button (click)="printPage()" class="no-print">Print Page</button>
     </div>
+
+    <br>
+    <button (click)="printPage()" class="no-print">Print Page</button>
   </div>
-  
+</div>

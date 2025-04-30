@@ -1,68 +1,88 @@
 <main>
-<h1>Welcome to Color Selection!</h1>
-
-<div class="form">
-    <h2>Add a Color</h2>
-    <form [formGroup]="addColorForm" (ngSubmit)="submitAdd($event)">
-        <label for="name">Enter color name: </label><br>
-        <input type="string" id="name" name="name" formControlName="name"><br>
-        @if (addColorForm.controls['name'].invalid && (addColorForm.controls['name'].touched || addColorForm.controls['name'].dirty)){
-            @if (addColorForm.controls['name'].errors?.["required"]){
-                <small>*Name is a required field</small><br>
-            }
+    <h1>Welcome to Color Selection!</h1>
+  
+    <!-- ADD COLOR FORM -->
+    <div class="form">
+      <h2>Add a Color</h2>
+      <form [formGroup]="addColorForm" (ngSubmit)="submitAdd($event)">
+        <label for="name">Enter color name:</label><br>
+        <input type="text" id="name" name="name" formControlName="name"><br>
+  
+        @if (addColorForm.controls['name'].invalid && (addColorForm.controls['name'].touched || addColorForm.controls['name'].dirty)) {
+          @if (addColorForm.controls['name'].errors?.['required']) {
+            <small>*Name is a required field</small><br>
+          }
         }
+  
         <br>
-        <label for="hex">Enter hex value (not including #): </label><br>
-        <input type="string" id="hex" name="hex" formControlName="hex"><br>
-        @if (addColorForm.controls['hex'].invalid && (addColorForm.controls['hex'].touched || addColorForm.controls['hex'].dirty)){
-            @if (addColorForm.controls['hex'].errors?.["required"]){
-                <small>*Hex value is a required field</small><br>
-            }
+        <label for="hex">Enter hex value (not including #):</label><br>
+        <input type="text" id="hex" name="hex" formControlName="hex"><br>
+  
+        @if (addColorForm.controls['hex'].invalid && (addColorForm.controls['hex'].touched || addColorForm.controls['hex'].dirty)) {
+          @if (addColorForm.controls['hex'].errors?.['required']) {
+            <small>*Hex value is a required field</small><br>
+          }
         }
-        <br><button type="submit" [disabled]="addColorForm.invalid">Submit!</button>
-    </form>
-    <br>
-    {{getAddColorMessage()}}
-</div>
-<br>
-<div class="form">
-    <h2>Edit a Color</h2>
-    <form [formGroup]="editColorForm" (ngSubmit)="submitEdit($event)">
-        <label for="name">Enter color name: </label><br>
-        <input type="string" id="name" name="name" formControlName="name"><br>
-        @if (editColorForm.controls['name'].invalid && (editColorForm.controls['name'].touched || editColorForm.controls['name'].dirty)){
-            @if (editColorForm.controls['name'].errors?.["required"]){
-                <small>*Name is a required field</small><br>
-            }
-        }
+  
         <br>
-        <label for="hex">Enter hex value (not including #): </label><br>
-        <input type="string" id="hex" name="hex" formControlName="hex"><br>
-        @if (editColorForm.controls['hex'].invalid && (editColorForm.controls['hex'].touched || editColorForm.controls['hex'].dirty)){
-            @if (editColorForm.controls['hex'].errors?.["required"]){
-                <small>*Hex value is a required field</small><br>
-            }
-        }
-        <br><button type="submit" [disabled]="editColorForm.invalid">Submit!</button>
-    </form>
+        <button type="submit" [disabled]="addColorForm.invalid">Submit!</button>
+      </form>
+      <br>
+      {{ getAddColorMessage() }}
+    </div>
+  
     <br>
-    {{getEditColorMessage()}}
-</div>
-<br>
-<div class="form">
-    <h2>Delete a Color</h2>
-    <form [formGroup]="deleteColorForm" (ngSubmit)="submitDelete($event)">
-        <label for="name">Enter color name to delete: </label><br>
-        <input type="string" id="name" name="name" formControlName="name"><br>
-        @if (deleteColorForm.controls['name'].invalid && (deleteColorForm.controls['name'].touched || deleteColorForm.controls['name'].dirty)){
-            @if (deleteColorForm.controls['name'].errors?.["required"]){
-                <small>*Name is a required field</small><br>
-            }
+  
+    <!-- EDIT COLOR FORM -->
+    <div class="form">
+      <h2>Edit a Color</h2>
+      <form [formGroup]="editColorForm" (ngSubmit)="submitEdit($event)">
+        <label for="edit-name">Enter color name:</label><br>
+        <input type="text" id="edit-name" name="name" formControlName="name"><br>
+  
+        @if (editColorForm.controls['name'].invalid && (editColorForm.controls['name'].touched || editColorForm.controls['name'].dirty)) {
+          @if (editColorForm.controls['name'].errors?.['required']) {
+            <small>*Name is a required field</small><br>
+          }
         }
-        <br><button type="submit" [disabled]="deleteColorForm.invalid">Submit!</button>
-    </form>
+  
+        <br>
+        <label for="edit-hex">Enter hex value (not including #):</label><br>
+        <input type="text" id="edit-hex" name="hex" formControlName="hex"><br>
+  
+        @if (editColorForm.controls['hex'].invalid && (editColorForm.controls['hex'].touched || editColorForm.controls['hex'].dirty)) {
+          @if (editColorForm.controls['hex'].errors?.['required']) {
+            <small>*Hex value is a required field</small><br>
+          }
+        }
+  
+        <br>
+        <button type="submit" [disabled]="editColorForm.invalid">Submit!</button>
+      </form>
+      <br>
+      {{ getEditColorMessage() }}
+    </div>
+  
     <br>
-    {{getDeleteColorMessage()}}
-</div>
-
-</main>
+  
+    <!-- DELETE COLOR FORM -->
+    <div class="form">
+      <h2>Delete a Color</h2>
+      <form [formGroup]="deleteColorForm" (ngSubmit)="submitDelete($event)">
+        <label for="delete-name">Enter color name to delete:</label><br>
+        <input type="text" id="delete-name" name="name" formControlName="name"><br>
+  
+        @if (deleteColorForm.controls['name'].invalid && (deleteColorForm.controls['name'].touched || deleteColorForm.controls['name'].dirty)) {
+          @if (deleteColorForm.controls['name'].errors?.['required']) {
+            <small>*Name is a required field</small><br>
+          }
+        }
+  
+        <br>
+        <button type="submit" [disabled]="deleteColorForm.invalid">Submit!</button>
+      </form>
+      <br>
+      {{ getDeleteColorMessage() }}
+    </div>
+  </main>
+  

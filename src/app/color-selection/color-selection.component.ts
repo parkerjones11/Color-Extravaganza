@@ -1,99 +1,103 @@
-import { Component} from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ColorService } from '../services/color.service';
-import { HttpContext } from '@angular/common/http';
+import { Component, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-color-selection',
-    standalone: true,
-    imports: [ReactiveFormsModule, RouterOutlet, CommonModule],
-    templateUrl: './color-selection.component.html',
-    styleUrl: './color-selection.component.css'
-  })
-
+  selector: 'app-color-selection',
+  standalone: true,
+  templateUrl: './color-selection.component.html',
+  styleUrls: ['./color-selection.component.css'],
+  imports: [ReactiveFormsModule]
+})
 export class ColorSelectionComponent {
+  addColorForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    hex: new FormControl('', [Validators.required])
+  });
 
-    constructor(private colorService: ColorService) {}
-    colors: any[] = [];
+  editColorForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    hex: new FormControl('', [Validators.required])
+  });
 
-    addColorMessage = '';
-    deleteColorMessage = '';
-    editColorMessage = '';
+  deleteColorForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required])
+  });
 
-    addColorForm: FormGroup = new FormGroup({
-        name: new FormControl('', {validators: [Validators.required]}),
-        hex: new FormControl('', {validators: [Validators.required]})
-    });
+  constructor(private colorService: ColorService) {}
 
-    deleteColorForm: FormGroup = new FormGroup({
-        name: new FormControl('', {validators: [Validators.required]})
-    });
-
-    editColorForm: FormGroup = new FormGroup({
-        name: new FormControl('', {validators: [Validators.required]}),
-        hex: new FormControl('', {validators: [Validators.required]})
-    })
-
-
-    submitAdd(event: Event): void {
-        if (this.addColorForm.valid){
-            this.addColor(this.addColorForm.value.name, this.addColorForm.value.hex);
-        }
-    }
-
-    submitDelete(event: Event): void {
-        if (this.deleteColorForm.valid){
-            this.deleteColor(this.deleteColorForm.value.name);
-        }
-    }
-
-    submitEdit(event: Event): void {
-        if (this.editColorForm.valid){
-            this.editColor(this.editColorForm.value.name, this.editColorForm.value.hex);
-        }
-    }
-  
-
-    ngOnInit() {
-       
-      this.colorService.getColors().subscribe((data) => {
-        this.colors = data;
-        console.log(this.colors);
+  submitAdd(event: Event): void {
+    event.preventDefault();
+    if (this.addColorForm.valid) {
+      const { name, hex } = this.addColorForm.value;
+      this.colorService.addColor(name, hex).subscribe(() => {
+        console.log(`Added color ${name} with hex ${hex}`);
       });
-      
     }
+  }
 
-    addColor(colorName: string, colorHex: string): void {
-        this.colorService.addColor(colorName, colorHex).subscribe((response) => {
-            this.addColorMessage = response.message;
-        });
+  submitEdit(event: Event): void {
+    event.preventDefault();
+    if (this.editColorForm.valid) {
+      const { name, hex } = this.editColorForm.value;
+      this.colorService.editColor(name, hex).subscribe(() => {
+        console.log(`Edited color ${name} to hex ${hex}`);
+      });
     }
+  }
 
-    deleteColor(colorName: string){
-        this.colorService.deleteColor(colorName).subscribe((response) => {
-            this.deleteColorMessage = response.message;
-        })
+  submitDelete(event: Event): void {
+    event.preventDefault();
+    if (this.deleteColorForm.valid) {
+      const { name } = this.deleteColorForm.value;
+      this.colorService.deleteColor(name).subscribe(() => {
+        console.log(`Deleted color ${name}`);
+      });
     }
+  }
 
-    editColor(colorName: string, colorHex: string){
-        this.colorService.editColor(colorName, colorHex).subscribe((response) => {
-            this.editColorMessage = response.message;
-        })
-    }
+  getAddColorMessage(): string {
+    return 'Color added successfully!';
+  }
 
+  getEditColorMessage(): string {
+    return 'Color updated successfully!';
+  }
 
-    getAddColorMessage() {
-        return this.addColorMessage;
-    }
+  getDeleteColorMessage(): string {
+    return 'Color deleted successfully!';
+  }
+}
 
-    getDeleteColorMessage() {
-        return this.deleteColorMessage;
-    }
+@Injectable({ providedIn: 'root' })
+export class ColorService {
+  private apiUrl = 'https://cs.colostate.edu/~pjones11/api.php';
 
-    getEditColorMessage() {
-        return this.editColorMessage;
-    }
+  constructor(private http: HttpClient) {}
 
+  public getColors(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  public addColor(name: string, hex: string): Observable<any> {
+    return this.http.post(this.apiUrl,
+      { action: 'add', color_name: name, color_hex: hex },
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  public editColor(name: string, hex: string): Observable<any> {
+    return this.http.post(this.apiUrl,
+      { action: 'edit', color_name: name, color_hex: hex },
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  public deleteColor(name: string): Observable<any> {
+    return this.http.post(this.apiUrl,
+      { action: 'delete', color_name: name },
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+  }
 }
