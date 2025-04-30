@@ -1,7 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { config } from './app/app.config.server';
+import { appRoutes } from './app/app.routes';
+import { provideHttpClient, withFetch } from '@angular/common/http'; // ✅ FIXED: added withFetch
+import { provideRouter } from '@angular/router';
 
-const bootstrap = () => bootstrapApplication(AppComponent, config);
-
-export default bootstrap;
+export default () => bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(appRoutes),
+    provideHttpClient(withFetch()) // ✅ FIXED: use withFetch here
+  ]
+});
