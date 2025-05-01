@@ -12,3 +12,11 @@ h1 {
     color: #184067;
   }
   
+  .card {
+    background-color: #FFCCCC; /* WebAIM score: 7.5 */
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 0 10px #EE3377; /* poor contrast, optional to remove */
+    color: #184067;
+    margin-bottom: 1.5rem;
+  }

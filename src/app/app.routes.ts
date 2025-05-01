@@ -5,9 +5,9 @@ import { ColorGenerationComponent } from './color-generation/color-generation.co
 import { ColorSelectionComponent } from './color-selection/color-selection.component';
 
 export const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', component: HomeComponent, title: 'Home' },
+  { path: 'home', pathMatch: 'full', component: HomeComponent, title: 'Home' },
   { path: 'about', component: AboutComponent, title: 'About us' },
   { path: 'color-generation', component: ColorGenerationComponent, title: 'Color Generator' },
   { path: 'color-selection', component: ColorSelectionComponent, title: 'Color Selection'},
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'home' }
 ];
