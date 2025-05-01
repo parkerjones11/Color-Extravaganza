@@ -27,11 +27,16 @@ export class ColorSelectionComponent {
 
   constructor(private colorService: ColorService) {}
 
+  addColorMessage = '';
+  deleteColorMessage = '';
+  editColorMessage = '';
+
   submitAdd(event: Event): void {
     event.preventDefault();
     if (this.addColorForm.valid) {
       const { name, hex } = this.addColorForm.value;
-      this.colorService.addColor(name, hex).subscribe(() => {
+      this.colorService.addColor(name, hex).subscribe((response) => {
+        this.addColorMessage = response.message;
         console.log(`Added color ${name} with hex ${hex}`);
       });
     }
@@ -41,7 +46,8 @@ export class ColorSelectionComponent {
     event.preventDefault();
     if (this.editColorForm.valid) {
       const { name, hex } = this.editColorForm.value;
-      this.colorService.editColor(name, hex).subscribe(() => {
+      this.colorService.editColor(name, hex).subscribe((response) => {
+        this.editColorMessage = response.message;
         console.log(`Edited color ${name} to hex ${hex}`);
       });
     }
@@ -51,22 +57,23 @@ export class ColorSelectionComponent {
     event.preventDefault();
     if (this.deleteColorForm.valid) {
       const { name } = this.deleteColorForm.value;
-      this.colorService.deleteColor(name).subscribe(() => {
+      this.colorService.deleteColor(name).subscribe((response) => {
+        this.deleteColorMessage = response.message;
         console.log(`Deleted color ${name}`);
       });
     }
   }
 
   getAddColorMessage(): string {
-    return 'Color added successfully!';
+    return this.addColorMessage;
   }
 
   getEditColorMessage(): string {
-    return 'Color updated successfully!';
+    return this.editColorMessage;
   }
 
   getDeleteColorMessage(): string {
-    return 'Color deleted successfully!';
+    return this.deleteColorMessage;
   }
 }
 

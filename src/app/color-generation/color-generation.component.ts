@@ -77,6 +77,12 @@ export class ColorGenerationComponent {
   onColorChange(index: number, event: Event): void {
     const selectedName = (event.target as HTMLSelectElement).value;
     const selectedColor = this.colors.find(c => c.name === selectedName);
+    const currentColor = this.colorRows[index].color.name;
+    for (const key in this.paintedCells){
+      if (this.paintedCells[key] === currentColor){
+        this.paintedCells[key] = selectedName;
+      }
+    }
     this.colorRows[index].color = selectedColor!;
   }
 
