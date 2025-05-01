@@ -1,70 +1,107 @@
-.card {
-  background-color: #FFCCCC; /* WebAIM score: 7.5 */
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px #EE3377; /* poor contrast, optional to remove */
-  color: #184067;
-  margin-bottom: 1.5rem;
-}
-
-.button-primary,
-button {
-  background-color: #000000; /* WebAIM score: 14.75 */
-  color: #FFFFFF; /* WebAIM score: 21.1 */
-  font-weight: bold;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 4px 2px;
-  transition: all 0.3s ease;
-}
-
-.button-primary:hover,
-button:hover {
-  background: #0A3D8A; /* WebAIM score: 7.2 */
-  color: #FFFFFF;  /* WebAIM score: 9.96 */
-  box-shadow: 0 0 20px #EE3377; /* poor contrast, optional to remove */
-}
-
-.color-painting-table,
-.color-painting-table td,
-.color-painting-table th {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-.color-painting-table td,
-.color-painting-table th {
-  background-color: white;
-  color: black;
-  width: 2rem;
-  height: 2rem;
-  text-align: center;
-  padding: 0.25rem;
-}
-
-/* Always show print labels in print */
-.print-label {
-  display: none;
-}
+/* Add these styles to your color-generation.component.css */
 
 @media print {
-  input[type="radio"] {
-    display: none;
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: inline !important;
+  }
+
+  .color-table .left-column {
+    width: 60%;
+  }
+
+  .color-table .right-column {
+    width: 40%;
+    text-align: right;
+  }
+
+  .print-coordinates {
+    font-family: monospace;
+  }
+
+  .color-painting-table td {
+    border: 1px solid #ccc;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: white !important;
+  }
+
+  .print-cell {
+    background-color: white !important;
   }
 
   .print-label {
-    display: inline;
-    color: black;
-    font-size: 0.85rem;
+    color: black !important;
+    font-size: 8px;
   }
 
-  .color-painting-table td,
-  .color-painting-table th {
-    background-color: white !important;
-    color: black !important;
-    border: 1px solid black;
+  .card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
   }
+}
+
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+/* Existing styles */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.color-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.color-table td {
+  padding: 8px;
+}
+
+.scrollable-table {
+  overflow-x: auto;
+}
+
+.color-painting-table {
+  border-collapse: collapse;
+}
+
+.color-painting-table td {
+  border: 1px solid #ccc;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.left-column {
+  width: 70%;
+}
+
+.right-column {
+  width: 30%;
+  text-align: right;
 }

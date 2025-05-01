@@ -60,18 +60,22 @@
       <tr *ngFor="let row of colorRows; let i = index">
         <td class="left-column">
           <div class="input-container">
-            <label>
-              <input class="no-print" type="radio" name="selectedRow" [checked]="selectedRowIndex === i" (change)="selectRow(i)">
+            <label class="no-print">
+              <input type="radio" name="selectedRow" [checked]="selectedRowIndex === i" (change)="selectRow(i)">
             </label>
 
-            <select [value]="row.color.name" (change)="onColorChange(i, $event)">
+            <select [value]="row.color.name" (change)="onColorChange(i, $event)" class="no-print">
               <option *ngFor="let color of getAvailableColors(row.color.name)" [value]="color.name">
                 {{ formatColorName(color.name) }} ({{ color.hex }})
               </option>
             </select>
+            
+            <span class="print-only">{{ formatColorName(row.color.name) }} ({{ row.color.hex }})</span>
           </div>
         </td>
-        <td class="right-column"></td>
+        <td class="right-column print-coordinates">
+          {{ getRowRange(submittedRows)[i] }}, {{ getColumnLabels(submittedCols)[i] }}
+        </td>
       </tr>
     </table>
 
@@ -89,6 +93,7 @@
             *ngFor="let col of getColumnLabels(submittedCols); let c = index"
             (click)="onCellClick(r + 1, col)"
             [ngStyle]="{ 'background-color': getCellColor(r + 1, col), 'color': 'transparent' }"
+            class="print-cell"
           >
             <span class="print-label">
               {{ getCellLabel(r + 1, col) }}
