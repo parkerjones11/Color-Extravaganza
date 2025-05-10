@@ -74,7 +74,7 @@
           </div>
         </td>
         <td class="right-column print-coordinates">
-          {{ getRowRange(submittedRows)[i] }}, {{ getColumnLabels(submittedCols)[i] }}
+          {{ getCoordinatesForColor(row.color.name) }}
         </td>
       </tr>
     </table>
@@ -95,9 +95,6 @@
             [ngStyle]="{ 'background-color': getCellColor(r + 1, col), 'color': 'transparent' }"
             class="print-cell"
           >
-            <span class="print-label">
-              {{ getCellLabel(r + 1, col) }}
-            </span>
           </td>
         </tr>
       </table>

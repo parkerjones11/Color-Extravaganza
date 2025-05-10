@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './color-generation.component.css'
 })
 export class ColorGenerationComponent {
+getPaintedCellsForColor(arg0: string): any {
+throw new Error('Method not implemented.');
+}
 
   constructor(private colorService: ColorService) {}
 
@@ -70,6 +73,13 @@ export class ColorGenerationComponent {
     this.colorRows[index].color = selectedColor!;
   }
 
+  getCellLabel(row: number, col: string): string {
+    const key = `${row}-${col}`;
+    const cell = this.clickedCells.find(c => `${c.row}-${c.col}` === key); 
+    return cell ? `${cell.color.name} (${row}, ${col})` : ''; 
+  }
+  
+
   onCellClick(row: number, col: string): void {
     if (this.selectedRowIndex !== null) {
       const selectedColor = this.colorRows[this.selectedRowIndex].color;
@@ -123,6 +133,16 @@ export class ColorGenerationComponent {
       labels.push(label);
     }
     return labels;
+  }
+
+  getCoordinatesForColor(colorName: string): string {
+    // Filter the clickedCells to find all cells with the specified color
+    const coordinates = this.clickedCells
+      .filter(cell => cell.color.name === colorName)
+      .map(cell => `(${cell.row}, ${cell.col})`); // Adjust this format as needed
+  
+    // Return the coordinates as a comma-separated string
+    return coordinates.join(', ');
   }
 
   getRowRange(rows: number): number[] {

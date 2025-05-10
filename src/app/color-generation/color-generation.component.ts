@@ -44,6 +44,7 @@ export class ColorGenerationComponent {
 
   colorRows: { color: { name: string, hex: string } }[] = [];
   paintedCells: Record<string, string> = {}; // Tracks painted cells with keys like "A1", "B2"
+  colorCoordinates: Record<string, string[]> = {}; // Stores coordinates for each color
 
   get rows(): number {
     return this.colorForm.get('rows')?.value || 1;
@@ -66,6 +67,7 @@ export class ColorGenerationComponent {
 
       this.selectedRowIndex = 0;
       this.paintedCells = {}; // Reset painted cells when form is submitted
+      this.colorCoordinates = {}; // Reset color coordinates on form submit
     }
   }
 
@@ -84,6 +86,9 @@ export class ColorGenerationComponent {
       }
     }
     this.colorRows[index].color = selectedColor!;
+    this.updateCoordinatesForColor(selectedName, '');  // Add new coordinates for selectedName
+    this.updateCoordinatesForColor(currentColor, selectedName);
+    
   }
 
   formatColorName(name: string): string {
@@ -133,18 +138,64 @@ export class ColorGenerationComponent {
     return colorObj?.hex || 'white';
   }
 
-  getCellLabel(row: number, col: string): string {
+  public getCellLabel(row: number, col: string): string {
     const key = this.getCellKey(row, col);
     const colorName = this.paintedCells[key];
-    return colorName ? `${colorName} (${row}, ${col})` : '';
+    if(colorName) {
+      return `${colorName} (${row}, ${col})`;
+    }
+    return '';
   }
+  
 
   onCellClick(row: number, col: string): void {
-    if (this.selectedRowIndex !== null) {
-      const selectedColor = this.colorRows[this.selectedRowIndex]?.color?.name;
-      const key = this.getCellKey(row, col);
-      this.paintedCells[key] = selectedColor;
+    if (this.selectedRowIndex === null) return; // Guard clause
+    const cellKey = `${col}${row}`;
+    const activeColorName = this.colorRows[this.selectedRowIndex]?.color.name;
+  
+    // Track the color used for this cell
+    this.paintedCells[cellKey] = activeColorName;
+  
+    // Initialize the color group if needed
+    if (!this.colorCoordinates[activeColorName]) {
+      this.colorCoordinates[activeColorName] = [];
     }
+  
+    // Avoid duplicates
+    if (!this.colorCoordinates[activeColorName].includes(cellKey)) {
+      this.colorCoordinates[activeColorName].push(cellKey);
+      this.colorCoordinates[activeColorName].sort(); // optional: keep coordinates sorted
+    }
+  }
+
+  updateCoordinatesForColor(oldColor: string, newColor: string): void {
+    if (newColor) {
+      // Add the new coordinate for newColor
+      for (const key in this.paintedCells) {
+        if (this.paintedCells[key] === newColor) {
+          if (!this.colorCoordinates[newColor]) {
+            this.colorCoordinates[newColor] = [];
+          }
+          this.colorCoordinates[newColor].push(key);
+          this.colorCoordinates[newColor] = this.colorCoordinates[newColor].sort(); // Lexicographical sort
+        }
+      }
+    }
+  
+    if (oldColor) {
+      // Remove the old coordinates for oldColor
+      const colorKeys = this.colorCoordinates[oldColor] || [];
+      for (const key of colorKeys) {
+        const index = this.colorCoordinates[oldColor].indexOf(key);
+        if (index !== -1) {
+          this.colorCoordinates[oldColor].splice(index, 1);
+        }
+      }
+    }
+  }
+
+  getCoordinatesForColor(colorName: string): string {
+    return this.colorCoordinates[colorName]?.join(', ') || '';
   }
 
   printPage(): void {

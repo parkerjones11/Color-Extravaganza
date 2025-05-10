@@ -58,11 +58,16 @@ button:hover {
   input[type="radio"] {
     display: none;
   }
+  
 
   .print-label {
     display: inline;
     color: black;
     font-size: 0.85rem;
+  }
+
+  .cell-label {
+    display: none;
   }
 
   .print-coordinates {
@@ -79,12 +84,5 @@ button:hover {
     background-color: white !important;
     color: black !important;
     border: 1px solid black;
-  }
-  .print-coordinates {
-    display: none;
-  }
-
-  .print-hex {
-    display: none;
   }
 }
