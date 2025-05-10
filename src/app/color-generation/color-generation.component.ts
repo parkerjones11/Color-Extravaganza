@@ -152,6 +152,15 @@ export class ColorGenerationComponent {
     if (this.selectedRowIndex === null) return; // Guard clause
     const cellKey = `${col}${row}`;
     const activeColorName = this.colorRows[this.selectedRowIndex]?.color.name;
+
+    for (const color in this.colorCoordinates) {
+      const coordList = this.colorCoordinates[color];
+      const index = coordList.indexOf(cellKey);
+      if (index !== -1) {
+        coordList.splice(index, 1); // Remove the coordinate
+        break; // Exit early: a cell only exists under one color
+      }
+    }
   
     // Track the color used for this cell
     this.paintedCells[cellKey] = activeColorName;
