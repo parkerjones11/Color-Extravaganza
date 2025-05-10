@@ -28,21 +28,25 @@ button:hover {
   box-shadow: 0 0 20px #EE3377; /* poor contrast, optional to remove */
 }
 
-.color-painting-table,
-.color-painting-table td,
-.color-painting-table th {
-  border: 1px solid black;
+.color-painting-table {
+  width: 100%;
+  table-layout: auto; /* Allow table to adjust its size based on content */
   border-collapse: collapse;
+  overflow-x: auto; /* Enable horizontal scrolling when needed */
+}
+
+.scrollable-table {
+  width: 100%;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on touch devices */
+  margin-bottom: 1rem; /* Space between the table and other content */
 }
 
 .color-painting-table td,
 .color-painting-table th {
-  background-color: white;
-  color: black;
-  width: 2rem;
-  height: 2rem;
-  text-align: left;
   padding: 0.5rem;
+  text-align: left;
+  border: 1px solid black;
 }
 
 .color-table .left-column {
